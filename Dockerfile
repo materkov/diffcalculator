@@ -2,7 +2,7 @@ FROM golang:1.10.0
 WORKDIR /go/src/github.com/materkov/diffcalculator
 COPY . .
 ENV CGO_ENABLED=0
-RUN go build -o /app cmd/run/main.go
+RUN go build -o /app cmd/main.go
 
 
 FROM alpine:3.7

@@ -1,8 +1,8 @@
 package diffcalculator
 
 type Store interface {
-	Get(sourceId string) ([]Post, error)
-	Save(sourceId string, posts []Post) error
+	Get(sourceID string) ([]Post, error)
+	Save(sourceID string, posts []Post) error
 }
 
 var StdStore = NewBoltStore()
