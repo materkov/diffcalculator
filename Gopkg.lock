@@ -3,7 +3,7 @@
 
 [[projects]]
   name = "github.com/aws/aws-sdk-go"
-  packages = ["aws","aws/awserr","aws/awsutil","aws/client","aws/client/metadata","aws/corehandlers","aws/credentials","aws/credentials/ec2rolecreds","aws/credentials/endpointcreds","aws/credentials/stscreds","aws/defaults","aws/ec2metadata","aws/endpoints","aws/request","aws/session","aws/signer/v4","internal/sdkio","internal/sdkrand","internal/shareddefaults","private/protocol","private/protocol/query","private/protocol/query/queryutil","private/protocol/rest","private/protocol/xml/xmlutil","service/sts"]
+  packages = ["aws","aws/awserr","aws/awsutil","aws/client","aws/client/metadata","aws/corehandlers","aws/credentials","aws/credentials/ec2rolecreds","aws/credentials/endpointcreds","aws/credentials/stscreds","aws/defaults","aws/ec2metadata","aws/endpoints","aws/request","aws/session","aws/signer/v4","internal/sdkio","internal/sdkrand","internal/shareddefaults","private/protocol","private/protocol/query","private/protocol/query/queryutil","private/protocol/rest","private/protocol/xml/xmlutil","service/sns","service/sts"]
   revision = "c8c4e0c0514d87f930c1342fef390db5329928b7"
   version = "v1.13.20"
 
@@ -26,19 +26,13 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/streadway/amqp"
-  packages = ["."]
-  revision = "8e4aba63da9fc5571e01c6a45dc809a58cbc5a68"
-
-[[projects]]
-  branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "2f1e207ee39ff70f3433e49c6eb52677a515e3b5"
+  revision = "91ee8cde435411ca3f1cd365e8f20131aed4d0a1"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "540ee9eb5f3a13dfee17d35486cd13bcfde29a3292957252673c5b7803edab06"
+  inputs-digest = "7c9429e839c5f0e464a61d2e06f6666e4d736d407a7be62fa52fd2ca05a5a2ed"
   solver-name = "gps-cdcl"
   solver-version = 1
