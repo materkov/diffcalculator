@@ -51,15 +51,15 @@ func (s *boltStore) open() error {
 	return nil
 }
 
-// Get gets posts
-func (s *boltStore) Get(sourceID string) ([]Post, error) {
-	posts := make([]Post, 0)
+// Get gets items
+func (s *boltStore) Get(sourceID string) ([]Item, error) {
+	items := make([]Item, 0)
 	err := s.db.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket([]byte(boltBucket))
 		value := bucket.Get([]byte(sourceID))
 
 		if value != nil {
-			if err := json.Unmarshal(value, &posts); err != nil {
+			if err := json.Unmarshal(value, &items); err != nil {
 				return fmt.Errorf("error unmarshaling json: %s", err)
 			}
 		}
@@ -70,19 +70,19 @@ func (s *boltStore) Get(sourceID string) ([]Post, error) {
 		return nil, fmt.Errorf("tx error: %s", err)
 	}
 
-	return posts, nil
+	return items, nil
 }
 
-// Save saves posts
-func (s *boltStore) Save(sourceID string, posts []Post) error {
-	postsBytes, err := json.Marshal(posts)
+// Save saves items
+func (s *boltStore) Save(sourceID string, items []Item) error {
+	itemsBytes, err := json.Marshal(items)
 	if err != nil {
 		return fmt.Errorf("error marshaling: %s", err)
 	}
 
 	err = s.db.Update(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket([]byte(boltBucket))
-		err := bucket.Put([]byte(sourceID), postsBytes)
+		err := bucket.Put([]byte(sourceID), itemsBytes)
 		if err != nil {
 			return fmt.Errorf("error putting to bucket: %s", err)
 		}
