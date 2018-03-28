@@ -3,36 +3,40 @@ package diffcalculator
 import "testing"
 
 func TestCalculate(t *testing.T) {
-	posts := []Post{
+	items := []Item{
 		{
-			Id:         1,
-			Message:    "1",
-			ExternalId: "1-1",
+			ID: 1,
+			Data: map[string]interface{}{
+				"Foo": "1",
+			},
 		},
 		{
-			Id:         2,
-			Message:    "2",
-			ExternalId: "1-2",
+			ID: 2,
+			Data: map[string]interface{}{
+				"Bar": "1",
+			},
 		},
 	}
-	err := Calculate("twitch", posts)
+	err := Calculate("twitch", items)
 	if err != nil {
 		t.Fatalf("error not expected: %s", err)
 	}
 
-	posts = []Post{
+	items = []Item{
 		{
-			Id:         2,
-			Message:    "2",
-			ExternalId: "1-2",
+			ID: 2,
+			Data: map[string]interface{}{
+				"Foo": "1",
+			},
 		},
 		{
-			Id:         2,
-			Message:    "2",
-			ExternalId: "1-3",
+			ID: 3,
+			Data: map[string]interface{}{
+				"Bar": "1",
+			},
 		},
 	}
-	err = Calculate("twitch", posts)
+	err = Calculate("twitch", items)
 	if err != nil {
 		t.Fatalf("error not expected: %s", err)
 	}

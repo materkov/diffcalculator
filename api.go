@@ -9,7 +9,7 @@ import (
 func calculateHandler(w http.ResponseWriter, r *http.Request) {
 	body := struct {
 		SourceID string
-		Posts    []Post
+		Items    []Item
 	}{}
 	err := json.NewDecoder(r.Body).Decode(&body)
 	if err != nil {
@@ -18,7 +18,7 @@ func calculateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err = Calculate(body.SourceID, body.Posts); err != nil {
+	if err = Calculate(body.SourceID, body.Items); err != nil {
 		log.Printf("[ERROR] Calculate error: %s", err)
 		http.Error(w, "internal error", http.StatusInternalServerError)
 		return

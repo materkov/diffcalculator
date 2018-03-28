@@ -2,9 +2,9 @@ package diffcalculator
 
 // Store is interface for storage
 type Store interface {
-	Get(sourceID string) ([]Post, error)
-	Save(sourceID string, posts []Post) error
+	Get(sourceID string) ([]Item, error)
+	Save(sourceID string, items []Item) error
 }
 
-// StdStore is standart storage
+// StdStore is standard storage
 var StdStore = NewBoltStore()

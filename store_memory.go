@@ -1,23 +1,23 @@
 package diffcalculator
 
 type memoryStore struct {
-	posts map[string][]Post
+	items map[string][]Item
 }
 
 // NewMemoryStore creates new store
 func NewMemoryStore() Store {
 	return &memoryStore{
-		posts: make(map[string][]Post, 0),
+		items: make(map[string][]Item, 0),
 	}
 }
 
-// Get return posts
-func (s *memoryStore) Get(sourceID string) ([]Post, error) {
-	return s.posts[sourceID], nil
+// Get return items for sourceID
+func (s *memoryStore) Get(sourceID string) ([]Item, error) {
+	return s.items[sourceID], nil
 }
 
-// Save saves posts
-func (s *memoryStore) Save(sourceID string, posts []Post) error {
-	s.posts[sourceID] = posts
+// Save saves items
+func (s *memoryStore) Save(sourceID string, items []Item) error {
+	s.items[sourceID] = items
 	return nil
 }
