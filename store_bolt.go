@@ -51,7 +51,11 @@ func (s *boltStore) open() error {
 	return nil
 }
 
+<<<<<<< HEAD
 // Get return items for this sourceID
+=======
+// Get gets items
+>>>>>>> 96030b50e449cac7a3286f2b65917e16d8cffd7c
 func (s *boltStore) Get(sourceID string) ([]Item, error) {
 	items := make([]Item, 0)
 	err := s.db.View(func(tx *bolt.Tx) error {

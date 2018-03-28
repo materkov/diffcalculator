@@ -5,13 +5,13 @@ import "testing"
 func TestCalculate(t *testing.T) {
 	items := []Item{
 		{
-			ID: 1,
+			ID: "1",
 			Data: map[string]interface{}{
 				"Foo": "1",
 			},
 		},
 		{
-			ID: 2,
+			ID: "2",
 			Data: map[string]interface{}{
 				"Bar": "1",
 			},
@@ -24,13 +24,13 @@ func TestCalculate(t *testing.T) {
 
 	items = []Item{
 		{
-			ID: 2,
+			ID: "2",
 			Data: map[string]interface{}{
 				"Foo": "1",
 			},
 		},
 		{
-			ID: 3,
+			ID: "3",
 			Data: map[string]interface{}{
 				"Bar": "1",
 			},
