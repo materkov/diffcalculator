@@ -1,0 +1,26 @@
+sudo: required #is required to use docker service in travis
+language: go
+
+env:
+  - DEP_VERSION="0.4.1"
+
+before_install:
+  - curl -L -s https://github.com/golang/dep/releases/download/v${DEP_VERSION}/dep-linux-amd64 -o $GOPATH/bin/dep
+  - chmod +x $GOPATH/bin/dep
+
+install:
+  - dep ensure
+
+services:
+  - docker # required, but travis uses older version of docker :(
+
+script:
+  - go build -o diffcalculator cmd/main.go
+
+after_success:
+  - docker --version
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+  - eval $(aws ecr get-login --region eu-central-1)
+  - docker build . -t 563473344515.dkr.ecr.eu-central-1.amazonaws.com/diffcalculator:$TRAVIS_COMMIT
+  - docker push 563473344515.dkr.ecr.eu-central-1.amazonaws.com/diffcalculator:$TRAVIS_COMMIT
