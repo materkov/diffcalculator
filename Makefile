@@ -17,3 +17,6 @@ ci_build:
 
 docker_build:
 	docker run --rm -v $(PWD):$(BUILD_PATH) -w $(BUILD_PATH) golang:1.10.0 make ci_build
+
+run:
+	eval $$(egrep -v '^#' .env | xargs) go run cmd/main.go
