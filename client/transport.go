@@ -74,7 +74,7 @@ func makeFactory(path string, enc httptransport.EncodeRequestFunc, dec httptrans
 			return nil, nil, err
 		}
 		tgt.Path = path
-		log.Printf("%s", tgt.String())
+		//log.Printf("%s", tgt.String())
 
 		return httptransport.NewClient("POST", tgt, enc, dec).Endpoint(), nil, nil
 	}

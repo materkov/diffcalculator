@@ -2,7 +2,7 @@ package client
 
 import (
 	"context"
-	"github.com/go-kit/kit/log"
+	stdlog "log"
 )
 
 type DiffCalculator interface {
@@ -19,6 +19,6 @@ var Std DiffCalculator
 func init() {
 	var err error
 	if Std, err = New(); err != nil {
-		log.Fatalf("Error creating DiffCalculator client: %s", err)
+		stdlog.Fatalf("Error creating DiffCalculator client: %s", err)
 	}
 }
