@@ -19,8 +19,6 @@ script:
 
 after_success:
   - docker --version
-  - pip install --user awscli
-  - export PATH=$PATH:$HOME/.local/bin
-  - eval $(aws ecr get-login --no-include-email --region eu-central-1)
-  - docker build . -t 563473344515.dkr.ecr.eu-central-1.amazonaws.com/diffcalculator:$TRAVIS_COMMIT
-  - docker push 563473344515.dkr.ecr.eu-central-1.amazonaws.com/diffcalculator:$TRAVIS_COMMIT
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker build . -t materkov/diffcalculator:$TRAVIS_COMMIT
+  - docker push materkov/diffcalculator:$TRAVIS_COMMIT
