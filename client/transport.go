@@ -37,7 +37,7 @@ func New() (DiffCalculator, error) {
 	retryMax := 3
 	retryTimeout := time.Second * 5
 
-	var instancer = consulsd.NewInstancer(client, logger, "diff-calculator", []string{}, true)
+	var instancer = consulsd.NewInstancer(client, logger, "diffcalculator", []string{}, true)
 
 	d := &diffCalculator{}
 
