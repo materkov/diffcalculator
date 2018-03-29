@@ -10,7 +10,7 @@ type DiffCalculator interface {
 }
 
 type Item struct {
-	ID   int
+	ID   string
 	Data interface{}
 }
 
