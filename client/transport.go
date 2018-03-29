@@ -66,17 +66,13 @@ func (d *diffCalculator) Calculate(ctx context.Context, sourceID string, items [
 
 func makeFactory(path string, enc httptransport.EncodeRequestFunc, dec httptransport.DecodeResponseFunc) sd.Factory {
 	return func(instance string) (endpoint.Endpoint, io.Closer, error) {
-		if !strings.HasPrefix(instance, "http") {
-			instance = "https://" + instance
-		}
-		tgt, err := url.Parse("https://proxy.mmaks.me")
+		reqUrl := fmt.Sprintf("http://%s%s", instance, path)
+		reqUrlStruct, err := url.Parse(reqUrl)
 		if err != nil {
-			return nil, nil, err
+			return nil, nil, fmt.Errorf("bad url %s: %s", reqUrl, err)
 		}
-		tgt.Path = path
-		//log.Printf("%s", tgt.String())
 
-		return httptransport.NewClient("POST", tgt, enc, dec).Endpoint(), nil, nil
+		return httptransport.NewClient("POST", reqUrlStruct, enc, dec).Endpoint(), nil, nil
 	}
 }
 
