@@ -13,7 +13,7 @@ import (
 const (
 	envDbPath       = "DB_PATH"
 	openFileTimeout = time.Second * 5
-	boltBucket      = "items"
+	boltBucket      = "items2"
 )
 
 type boltStore struct {
@@ -52,8 +52,8 @@ func (s *boltStore) open() error {
 }
 
 // Get return items for this sourceID
-func (s *boltStore) Get(sourceID string) ([]Item, error) {
-	items := make([]Item, 0)
+func (s *boltStore) Get(sourceID string) (map[string]interface{}, error) {
+	items := map[string]interface{}{}
 	err := s.db.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket([]byte(boltBucket))
 		value := bucket.Get([]byte(sourceID))
@@ -74,7 +74,7 @@ func (s *boltStore) Get(sourceID string) ([]Item, error) {
 }
 
 // Save saves items
-func (s *boltStore) Save(sourceID string, items []Item) error {
+func (s *boltStore) Save(sourceID string, items map[string]interface{}) error {
 	itemsBytes, err := json.Marshal(items)
 	if err != nil {
 		return fmt.Errorf("error marshaling: %s", err)

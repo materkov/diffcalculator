@@ -1,8 +1,10 @@
-sudo: required #is required to use docker service in travis
 language: go
+sudo: required
 
 env:
-  - DEP_VERSION="0.4.1"
+  global:
+    - DEP_VERSION="0.4.1"
+    - DOCKER_IMAGE="materkov/diffcalculator"
 
 before_install:
   - curl -L -s https://github.com/golang/dep/releases/download/v${DEP_VERSION}/dep-linux-amd64 -o $GOPATH/bin/dep
@@ -12,13 +14,13 @@ install:
   - dep ensure
 
 services:
-  - docker # required, but travis uses older version of docker :(
+  - docker
 
 script:
-  - go build -o diffcalculator cmd/main.go
+  - go build -o app cmd/main.go
 
 after_success:
   - docker --version
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker build . -t materkov/diffcalculator:$TRAVIS_COMMIT
-  - docker push materkov/diffcalculator:$TRAVIS_COMMIT
+  - docker build . -t $DOCKER_IMAGE:$TRAVIS_COMMIT
+  - docker push $DOCKER_IMAGE:$TRAVIS_COMMIT

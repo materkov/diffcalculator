@@ -20,7 +20,7 @@ func init() {
 }
 
 // Calculate calculate diff from previous version, and sends new items to SNS
-func Calculate(sourceID string, items []Item) error {
+func Calculate(sourceID string, items map[string]interface{}) error {
 	oldItems, err := StdStore.Get(sourceID)
 	if err != nil {
 		return fmt.Errorf("error getting from storage: %s", err)
@@ -35,25 +35,25 @@ func Calculate(sourceID string, items []Item) error {
 		return nil // First run (no old items)
 	}
 
-	itemsAdded := make([]Item, 0)
+	itemsAdded := map[string]interface{}{}
 
-	for _, item := range items {
+	for id, item := range items {
 		found := false
-		for _, oldItem := range oldItems {
-			if item.ID == oldItem.ID {
+		for oldID := range oldItems {
+			if id == oldID {
 				found = true
 				break
 			}
 		}
 
 		if !found {
-			itemsAdded = append(itemsAdded, item)
+			itemsAdded[id] = item
 		}
 	}
 
 	if len(itemsAdded) > 0 {
 		for _, item := range itemsAdded {
-			itemMarshalled, err := json.Marshal(item.Data)
+			itemMarshalled, err := json.Marshal(item)
 			if err != nil {
 				return fmt.Errorf("error marshaling item: %s", err)
 			}

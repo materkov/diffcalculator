@@ -31,8 +31,8 @@
     "service/sns",
     "service/sts"
   ]
-  revision = "c8c4e0c0514d87f930c1342fef390db5329928b7"
-  version = "v1.13.20"
+  revision = "74ca63959be8b9a9a24cd86eaaea8bf99de8022d"
+  version = "v1.13.25"
 
 [[projects]]
   name = "github.com/boltdb/bolt"
@@ -41,60 +41,25 @@
   version = "v1.3.1"
 
 [[projects]]
+  name = "github.com/go-chi/chi"
+  packages = [
+    ".",
+    "middleware"
+  ]
+  revision = "e83ac2304db3c50cf03d96a2fcd39009d458bc35"
+  version = "v3.3.2"
+
+[[projects]]
+  name = "github.com/go-chi/render"
+  packages = ["."]
+  revision = "9f855fadd4b8cde7773f9ef51f6b2705af239519"
+  version = "v1.0.0"
+
+[[projects]]
   name = "github.com/go-ini/ini"
   packages = ["."]
   revision = "6333e38ac20b8949a8dd68baa3650f4dee8f39f0"
   version = "v1.33.0"
-
-[[projects]]
-  name = "github.com/go-kit/kit"
-  packages = [
-    "endpoint",
-    "log",
-    "sd",
-    "sd/consul",
-    "sd/internal/instance",
-    "sd/lb",
-    "transport/http"
-  ]
-  revision = "ca4112baa34cb55091301bdc13b1420a122b1b9e"
-  version = "v0.7.0"
-
-[[projects]]
-  name = "github.com/go-logfmt/logfmt"
-  packages = ["."]
-  revision = "390ab7935ee28ec6b286364bba9b4dd6410cb3d5"
-  version = "v0.3.0"
-
-[[projects]]
-  name = "github.com/go-stack/stack"
-  packages = ["."]
-  revision = "259ab82a6cad3992b4e21ff5cac294ccb06474bc"
-  version = "v1.7.0"
-
-[[projects]]
-  name = "github.com/hashicorp/consul"
-  packages = ["api"]
-  revision = "9a494b5fb9c86180a5702e29c485df1507a47198"
-  version = "v1.0.6"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/hashicorp/go-cleanhttp"
-  packages = ["."]
-  revision = "d5fe4b57a186c716b0e00b8c301cbd9b4182694d"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/hashicorp/go-rootcerts"
-  packages = ["."]
-  revision = "6bb64b370b90e7ef1fa532be9e591a81c3493e00"
-
-[[projects]]
-  name = "github.com/hashicorp/serf"
-  packages = ["coordinate"]
-  revision = "d6574a5bb1226678d7010325fb6c985db20ee458"
-  version = "v0.8.1"
 
 [[projects]]
   name = "github.com/jmespath/go-jmespath"
@@ -103,25 +68,13 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/kr/logfmt"
-  packages = ["."]
-  revision = "b84e30acd515aadc4b783ad4ff83aff3299bdfe0"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/mitchellh/go-homedir"
-  packages = ["."]
-  revision = "b8bc1bf767474819792c23f32d8286a45736f1c6"
-
-[[projects]]
-  branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "91ee8cde435411ca3f1cd365e8f20131aed4d0a1"
+  revision = "378d26f46672a356c46195c28f61bdb4c0a781dd"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8a40d44d30aab5f997f09e090d36b53f50809ce21c76b47b1aec1e040089c50d"
+  inputs-digest = "33f1fbd294170b1ed870b00aee91432e9ef1100eede9e75785993b457a87054e"
   solver-name = "gps-cdcl"
   solver-version = 1

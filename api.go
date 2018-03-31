@@ -1,34 +1,61 @@
 package diffcalculator
 
 import (
-	"encoding/json"
-	"log"
+	"github.com/go-chi/chi"
 	"net/http"
+	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/render"
 )
 
-func calculateHandler(w http.ResponseWriter, r *http.Request) {
-	body := struct {
-		SourceID string
-		Items    []Item
-	}{}
-	err := json.NewDecoder(r.Body).Decode(&body)
-	if err != nil {
-		log.Printf("[ERROR] Error unmarshaling json: %s", err)
-		http.Error(w, "error reading body", http.StatusInternalServerError)
-		return
-	}
+type calculateRequest struct {
+	SourceID string
+	Items    map[string]interface{}
+}
 
-	if err = Calculate(body.SourceID, body.Items); err != nil {
-		log.Printf("[ERROR] Calculate error: %s", err)
-		http.Error(w, "internal error", http.StatusInternalServerError)
-		return
+func (c *calculateRequest) Bind(req *http.Request) error {
+	return nil
+}
+
+type ApiError struct {
+	Error struct {
+		Code, Desc string
 	}
 }
 
-// ServeHTTP create and run HTTP server at :8000
-func ServeHTTP() {
-	log.Printf("[INFO] Starting HTTP server at :8000")
+func (e *ApiError) Render(w http.ResponseWriter, r *http.Request) error {
+	render.Status(r, http.StatusBadRequest)
+	return nil
+}
 
-	http.HandleFunc("/DiffCalculator/Calculate", calculateHandler)
-	http.ListenAndServe(":8000", nil)
+func ErrApi(code, desc string) render.Renderer {
+	e := &ApiError{}
+	e.Error.Code = code
+	e.Error.Desc = desc
+	return e
+}
+
+var (
+	ErrRequestDecodeError = ErrApi("REQUEST_DECODE_ERROR", "Error decoding json request body")
+	ErrInternal           = ErrApi("INTERNAL_ERROR", "Internal server error")
+)
+
+func handleCalculate(w http.ResponseWriter, r *http.Request) {
+	req := calculateRequest{}
+	if err := render.Bind(r, &req); err != nil {
+		render.Render(w, r, ErrRequestDecodeError)
+		return
+	}
+
+	if err := Calculate(req.SourceID, req.Items); err != nil {
+		render.Render(w, r, ErrInternal)
+	}
+
+	render.NoContent(w, r)
+}
+
+func ServeHTTP() {
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
+	r.Post("/calculate", handleCalculate)
+	http.ListenAndServe(":8000", r)
 }
