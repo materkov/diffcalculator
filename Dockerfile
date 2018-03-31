@@ -2,4 +2,4 @@ FROM alpine:3.7
 RUN apk update && apk add --no-cache ca-certificates
 EXPOSE 8000
 CMD ["/diffcalculator"]
-COPY app /diffcalculator
+COPY /app /diffcalculator

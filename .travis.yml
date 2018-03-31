@@ -17,7 +17,7 @@ services:
   - docker
 
 script:
-  - go build -o app cmd/main.go
+  - go build -o /app cmd/main.go
 
 after_success:
   - docker --version
